@@ -3,31 +3,30 @@ package com.yedam.common;
 import java.util.List;
 
 import com.yedam.board.persistence.BoardDAO;
+import com.yedam.board.service.BoardService;
+import com.yedam.board.service.BoardServiceMybatis;
 import com.yedam.board.vo.BoardVO;
 
 public class TestMain {
 
 	public static void main(String[] args) {
-		BoardDAO dao = new BoardDAO();
-		
-		BoardVO brd = new BoardVO();
-//		brd.setBrdContent("내용테스트");
-//		brd.setBrdWriter("newbie");
-		brd.setBrdNo(24);
-//		brd.setBrdTitle("제목테스트21");
-		
-		if(dao.selectBoard(brd.getBrdNo()) != null) {
-			System.out.println("조회성공");
-		}
-		else {
-			System.out.println("조회실패");
-		}
+		BoardService service = new BoardServiceMybatis();
 		
 		
-		List <BoardVO> list = dao.boardList();
-		for(BoardVO vo : list) {
-			System.out.println(vo.toString());
+//		for(BoardVO vo : list ) {목록보기 
+//			System.out.println(vo.toString());
+//		}
+		
+		//단건조회
+//		List<BoardVO> list = service.list(3);
+//		System.out.println(service.delBoard(906));
+		
+		BoardVO vo = new BoardVO();
+		vo.setBrdTitle("aa");
+		vo.setBrdContent("ddd");
+		vo.setBrdWriter("dfd");
+		System.out.println(service.addBoard(vo));
 		}
 	}
 
-}
+

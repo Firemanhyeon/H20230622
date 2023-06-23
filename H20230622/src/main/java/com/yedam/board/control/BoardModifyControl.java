@@ -11,17 +11,24 @@ import com.yedam.board.service.BoardServiceMybatis;
 import com.yedam.board.vo.BoardVO;
 import com.yedam.common.Controller;
 
-public class BoardSearchControl implements Controller {
+public class BoardModifyControl implements Controller {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String no = req.getParameter("bno");//값가져오기
+		//DB수정 , 목록
+		String no = req.getParameter("no");
+		String title = req.getParameter("title");
+		String content = req.getParameter("content");
+		
+		BoardVO vo = new BoardVO();
+		vo.setBrdNo(Long.parseLong(no));
+		vo.setBrdTitle(title);
+		vo.setBrdContent(content);
+		
 		BoardService service = new BoardServiceMybatis();
-		BoardVO vo = service.getBoard(Long.parseLong(no));//조회
+		service.editBoard(vo);
 		
-		req.setAttribute("board", vo);//값을 넘겨준다 jsp에
-		
-		req.getRequestDispatcher("WEB-INF/jsp/boardOne.jsp").forward(req, res);
+		res.sendRedirect("boardList.do");
 	}
 
 }

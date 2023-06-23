@@ -63,6 +63,44 @@ public class BoardDAO {
 		
 	}
 
+	
+	public List<BoardVO> boardListPaging(int page){
+		List<BoardVO> list = new ArrayList();
+		conn = DAO.getConnect();
+		sql = "select *\r\n"
+				+ "from(\r\n"
+				+ "select rownum rn, a.*\r\n"
+				+ "from ( \r\n"
+				+ "        select *\r\n"
+				+ "        from tbl_board order by brd_no desc\r\n"
+				+ "        ) a\r\n"
+				+ "        )b\r\n"
+				+ "where b.rn>(? -1)*10 and b.rn<=? * 10";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, page);
+			psmt.setInt(2, page);
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardVO vo = new BoardVO();
+				vo.setBrdNo(rs.getInt("brd_no"));
+				vo.setBrdTitle(rs.getString("brd_title"));
+				vo.setBrdWriter(rs.getString("brd_writer"));
+				vo.setBrdContent(rs.getString("brd_content"));
+				vo.setCreateDate(rs.getDate("create_date"));
+				vo.setClickCnt(rs.getInt("click_cnt"));
+				list.add(vo);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return list;
+		
+	}
 		
 	
 	public boolean insertBoard(BoardVO vo) {
@@ -171,5 +209,22 @@ public class BoardDAO {
 		}finally {
 			close();
 		}
+	}
+	//전체건수 계산
+	public int getTotalCnt() {
+		conn = DAO.getConnect();
+		sql = "select count(1) from tbl_board";
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs=psmt.executeQuery();
+			rs.next();
+			int cnt = rs.getInt(1);
+			return cnt;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return 0;
 	}
 }

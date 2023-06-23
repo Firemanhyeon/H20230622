@@ -12,4 +12,5 @@ public class BoardVO {
 	private String brdContent;
 	private Date createDate;
 	private int clickCnt;
+	private int totaCnt;
 }
