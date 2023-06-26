@@ -9,42 +9,42 @@
 </head>
 <body>
 <c:import url="jstl1.jsp"></c:import>
-<%
-if(30>20){}
-else{}
-%>
-<c:if test="${30>200 }">
- <p>true</p>
-</c:if>
-
-<c:set var="score" value="50"></c:set>
-<c:out value="${score}"></c:out>
-
-<c:choose>
-	<c:when test="${score>20 }">
-	<p>값이 참입니다
-	</c:when>
-	<c:otherwise>
-	<p>값이 거짓입니다</p>
-	</c:otherwise>
-</c:choose>
-
-<c:set var ="mathScore" value="81"></c:set>
-
-<c:choose>
-	<c:when test="${mathScore>90 }">
-		<p>A학점입니다</p>
-	</c:when>
-	<c:when test="${mathScore>80 }">
-		<p>B학점입니다</p>
-	</c:when>
-	<c:when test="${mathScore>70 }">
-		<p>C학점입니다</p>
-	</c:when>
-	 <c:otherwise>
-		<p>F학점입니다</p>
-	</c:otherwise>
-</c:choose>
+	<%
+	if(30>20){}
+	else{}
+	%>
+	<c:if test="${30>200 }">
+	 <p>true</p>
+	</c:if>
+	
+	<c:set var="score" value="50"></c:set>
+	<c:out value="${score}"></c:out>
+	
+	<c:choose>
+		<c:when test="${score>20 }">
+		<p>값이 참입니다
+		</c:when>
+		<c:otherwise>
+		<p>값이 거짓입니다</p>
+		</c:otherwise>
+	</c:choose>
+	
+	<c:set var ="mathScore" value="81"></c:set>
+	
+	<c:choose>
+		<c:when test="${mathScore>90 }">
+			<p>A학점입니다</p>
+		</c:when>
+		<c:when test="${mathScore>80 }">
+			<p>B학점입니다</p>
+		</c:when>
+		<c:when test="${mathScore>70 }">
+			<p>C학점입니다</p>
+		</c:when>
+		 <c:otherwise>
+			<p>F학점입니다</p>
+		</c:otherwise>
+	</c:choose>
 		
 	<c:choose>
 		<c:when test="${!empty loginId }">

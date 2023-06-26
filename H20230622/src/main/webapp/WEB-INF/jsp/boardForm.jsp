@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <jsp:include page = "header.jsp"></jsp:include>
 	
 	<%
@@ -7,14 +8,10 @@
 	
 		String logId = (String) session.getAttribute("loginId");
 	%>
-	<%
-		if(msg!=null){
-				
-	%>
-		<p>메세지:<b> <%=msg %></b>
-	<% 
-		}
-	%>
+	
+	<c:if test="${empty msg }">
+		<p>메세지:<b>${msg }</b>
+	</c:if>
     <h3>게시글 등록</h3>
     <form action="addBoard.do" method="post">
         <table border="1" class= "table">
@@ -24,17 +21,14 @@
             </tr>
             <tr>
                 <th>작성자</th>
-                 <%
-                if(logId==null){                            
-                %>
-                    <td><input type="text" name="writer" readonly ></td>
-                <%
-                }else{
-                 %>
-                    	<td><input type="text" name="writer" value="<%=logId%>" readonly ></td>
-                    <%
-                }
-                    %>
+                <c:choose>
+                	<c:when test="${empty loginId }">
+                    <td><input type="text" name="writer" readonly ></td>                	
+                	</c:when>
+                	<c:otherwise>
+                    	<td><input type="text" name="writer" value="${logind }" readonly ></td>                	
+                	</c:otherwise>
+                </c:choose>
             </tr>
             <tr>
                 <th>내용</th>
@@ -42,17 +36,14 @@
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                <%
-                if(logId==null){                            
-                %>
-                    <input type="submit"  value="저장" disabled>
-                <%
-                }else{
-                 %>
-                    	<input type="submit"  value="저장">
-                    <%
-                }
-                    %>
+                <c:choose>
+                	<c:when test="${empty loginId }">
+                    <input type="submit"  value="저장" disabled>                	
+                	</c:when>
+                	<c:otherwise>
+                    	<input type="submit"  value="저장">                	
+                	</c:otherwise>
+                </c:choose>
                     <input type="reset" value="초기화">
                 </td>
             </tr>
