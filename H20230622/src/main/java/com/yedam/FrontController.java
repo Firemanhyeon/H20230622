@@ -17,6 +17,13 @@ import com.yedam.board.control.BoardModifyFormControl;
 import com.yedam.board.control.BoardRemoveControl;
 import com.yedam.board.control.BoardSearchControl;
 import com.yedam.common.Controller;
+import com.yedam.member.control.AddMemberControl;
+import com.yedam.member.control.LoginControl;
+import com.yedam.member.control.LoginFormControl;
+import com.yedam.member.control.LogoutControl;
+import com.yedam.member.control.MemberInfoControl;
+import com.yedam.member.control.MemberJoinForm;
+import com.yedam.member.control.ModifyMemberControl;
 
 public class FrontController extends HttpServlet{
 	String enc;
@@ -29,6 +36,7 @@ public class FrontController extends HttpServlet{
 	public void init(ServletConfig config) throws ServletException {
 		enc = config.getInitParameter("charset");
 		System.out.println("init실행");
+		//게시판
 		menu.put("/main.do", new MainControl());
 		menu.put("/boardList.do", new BoardListControl());
 		menu.put("/boardForm.do", new BoardFormControl());
@@ -37,6 +45,16 @@ public class FrontController extends HttpServlet{
 		menu.put("/modifyForm.do", new BoardModifyFormControl());//화면열어주는역할 , 메소드
 		menu.put("/boardModify.do", new BoardModifyControl());//실제로 바뀐값을 Db에 수정하고 목록보여주는 메소드
 		menu.put("/boardRemove.do", new BoardRemoveControl());
+		
+		//회원관련
+		menu.put("/memberLoginForm.do", new LoginFormControl());
+		menu.put("/memberLogin.do", new LoginControl());
+		menu.put("/memberLogout.do", new LogoutControl());
+		menu.put("/memberJoinForm.do", new MemberJoinForm());
+		menu.put("/addMember.do", new AddMemberControl());
+		menu.put("/memberInfo.do", new MemberInfoControl());
+		menu.put("/modifyMember.do", new ModifyMemberControl());
+		
 		
 		menu.put("/member.do", new MemberControl());
 	}

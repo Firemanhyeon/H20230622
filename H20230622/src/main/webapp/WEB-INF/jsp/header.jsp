@@ -14,15 +14,39 @@
         <link href="bootstrap/css/styles.css" rel="stylesheet" />
     </head>
     <body>
+    	<%
+    	 	String logId= (String) session.getAttribute("loginId");//logincontrol에서 담아놨던 아이디와 이름정보를 String logid logname으로 선언 
+    		String logName= (String) session.getAttribute("loginName");
+    	%>
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
+             		<%
+                    	if(logId==null){
+                    %>
+                <div class="sidebar-heading border-bottom bg-light">손님입니다</div>
+                 	<%
+                    	}else{
+                    %>
+                <div class="sidebar-heading border-bottom bg-light"><%=logName%>입니다!</div>
+                   <%  		
+                    	}
+                    %>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="boardForm.do">등록화면</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="boardList.do">게시판목록</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
+                    <%
+                    	if(logId==null){
+                    %>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberLoginForm.do">로그인</a>
+                     <%
+                    	}else{
+                    %>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberLogout.do">로그아웃</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberInfo.do">My Info</a>
+                   <%  		
+                    	}
+                    %>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
                 </div>
